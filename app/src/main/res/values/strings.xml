@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Inventory Control</string>
+    <string name="sign_in_message">We are not recognise You! Please</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="greeting">Welcome to</string>
+    <string name="sign_in">Sign In</string>
+</resources>
