@@ -7,9 +7,30 @@
     android:orientation="vertical"
     tools:context=".ListProduct">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_product"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_new_product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_add_24"
+            android:padding="16dp"
+            android:backgroundTint="@color/red_heart"
+            android:layout_margin="30dp"
+            android:layout_gravity="bottom|end"
+            android:clickable="true"
+            android:contentDescription="TODO"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_product"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </FrameLayout>
 
 </LinearLayout>

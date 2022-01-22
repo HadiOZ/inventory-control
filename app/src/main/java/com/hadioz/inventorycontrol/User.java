@@ -7,11 +7,6 @@ public class User {
     private String password;
     private String position;
 
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-
-    }
 
     public void setId(String id) {
         this.id = id;
@@ -19,6 +14,14 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setPosition(String position) {
