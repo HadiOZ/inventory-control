@@ -35,7 +35,6 @@ public class SignIn extends AppCompatActivity {
         userModel = new UserModel(this);
         userModel.deleteUser();
 
-        // Auth auth = new Auth();
         EditText username = (EditText) findViewById(R.id.et_username);
         EditText password = (EditText) findViewById(R.id.et_password);
         Button signIn = (Button) findViewById(R.id.btn_login);
@@ -48,7 +47,6 @@ public class SignIn extends AppCompatActivity {
             user.setPassword(password.getText().toString());
             PostData(user);
 
-            //auth.execute(user);
         });
 
     }
@@ -69,6 +67,7 @@ public class SignIn extends AppCompatActivity {
                         Log.d("result", Long.toString(result));
                         if (result > 0) {
                             startActivity(listProductIntent);
+                            finish();
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -89,33 +88,6 @@ public class SignIn extends AppCompatActivity {
             }
         });
     }
-
-
-
-    public class Auth extends AsyncTask<User, String, String> {
-
-        @Override
-        protected String doInBackground(User... users) {
-            Log.d("usr", users[0].getUsername());
-            Log.d("pass", users[0].getPassword());
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            boolean verified = true;
-
-            Intent listProductIntent = new Intent(SignIn.this, ListProduct.class);
-            if (verified) {
-                startActivity(listProductIntent);
-            }
-
-        }
-
-
-    }
-
 
 }
 

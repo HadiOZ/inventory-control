@@ -7,15 +7,39 @@
     android:orientation="vertical"
     tools:context=".ListLog">
 
-    <com.google.android.material.tabs.TabLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tl_log"
-        />
-    <androidx.viewpager2.widget.ViewPager2
-        android:layout_below="@+id/tl_log"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/vp2_log"
-        />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tl_log"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vp2_log"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_output"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_add_24"
+            android:padding="16dp"
+            android:backgroundTint="@color/red_heart"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="30dp"
+            android:clickable="true"
+            />
+
+
+    </FrameLayout>
+
 </RelativeLayout>

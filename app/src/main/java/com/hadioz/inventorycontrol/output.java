@@ -3,62 +3,94 @@ package com.hadioz.inventorycontrol;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link output#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.hadioz.inventorycontrol.api.APIService;
+import com.hadioz.inventorycontrol.api.APIUtil;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+
 public class output extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private RecyclerView listLog;
+    private LogAdapter adapter;
+    private ArrayList<Log> dataLog =new ArrayList<>();
+    private String id;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public output() {
-        // Required empty public constructor
+    public output(String id) {
+        this.id = id;
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment output.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static output newInstance(String param1, String param2) {
-        output fragment = new output();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    private void LoadData(String id) {
+        APIService apiService = new APIUtil().getAPIService();
+        apiService.getLog(id).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                String data = response.body();
+                if (!data.equals("null")) {
+                    android.util.Log.d("Data", response.body());
+                    try {
+                        JSONArray dataArray = new JSONArray(data);
+                        for (int i = 0; i < dataArray.length(); i++) {
+                            JSONObject object = (JSONObject) dataArray.get(i);
+                            String action = object.getString("action");
+                            Log log = new Log(object.getString("admin"), action.charAt(0), object.getInt("amount"));
+                            log.setDate(object.getString("date"));
+                            log.setId(object.getString("id"));
+                            if (log.getAction() == "o".charAt(0)) {
+                                //android.util.Log.d("action", "i");
+                                dataLog.add(log);
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_output, container, false);
+        View view = inflater.inflate(R.layout.fragment_input, container, false);
+        // Inflate the layout for this fragment
+        listLog = view.findViewById(R.id.rcv_log);
+
+        adapter = new LogAdapter(dataLog, view.getContext());
+
+        RecyclerView.LayoutManager layoutManager= new LinearLayoutManager(view.getContext());
+        listLog.setLayoutManager(layoutManager);
+        listLog.setAdapter(adapter);
+
+        LoadData(id);
+        return view;
     }
 }

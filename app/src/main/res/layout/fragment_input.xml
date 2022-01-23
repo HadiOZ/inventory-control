@@ -8,24 +8,13 @@
     tools:context=".input">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_log"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
+        android:layout_height="match_parent"/>
 
-        android:text="fragment output" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_output"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_add_24"
-        android:padding="16dp"
-        android:backgroundTint="@color/red_heart"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="30dp"
-        android:clickable="true"
-        />
 
 
 </FrameLayout>

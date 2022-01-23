@@ -2,13 +2,13 @@ package com.hadioz.inventorycontrol;
 
 public class Log {
     private String id;
-    private User  admin;
+    private String  admin;
     private char action;
     private String date;
     private int amount;
 
     public Log(String admin, char action, int amount) {
-        this.admin.setId(admin);
+        this.admin = admin;
         this.action = action;
         this.amount = amount;
     }
@@ -17,9 +17,6 @@ public class Log {
         this.id = id;
     }
 
-    public void setAdmin(String admin) {
-        this.admin.setName(admin);
-    }
 
     public void setDate(String date) {
         this.date = date;
@@ -29,7 +26,7 @@ public class Log {
         return id;
     }
 
-    public User getAdmin() {
+    public String getAdmin() {
         return admin;
     }
 

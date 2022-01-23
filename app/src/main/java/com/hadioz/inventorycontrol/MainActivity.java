@@ -33,8 +33,10 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 if (verified) {
                     startActivity(listProductIntent);
+                    finish();
                 } else {
                     startActivity(signInIntent);
+                    finish();
                 }
             }
         }, 3000);
