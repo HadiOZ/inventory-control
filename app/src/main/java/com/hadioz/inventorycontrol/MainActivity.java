@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
-        // Intent loginIntent = new Intent(MainActivity.this, DashboardActivity.class);
+
         Intent signInIntent = new Intent(MainActivity.this, SignIn.class);
         Intent listProductIntent = new Intent(MainActivity.this, ListProduct.class);
 

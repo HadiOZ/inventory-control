@@ -22,9 +22,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FragmentLogAdapter  extends FragmentStateAdapter {
-//    private ArrayList<Log> dataLog = new ArrayList<>();
-//    private ArrayList<Log> dataInput = new ArrayList<>();
-//    private ArrayList<Log> dataOutput = new ArrayList<>();
+
     private String id;
 
 
@@ -35,16 +33,6 @@ public class FragmentLogAdapter  extends FragmentStateAdapter {
 
     }
 
-//    private void SetData() {
-//      for (int i = 0; i < dataLog.size(); i++) {
-//          Log log = dataLog.get(i);
-//          if (log.getAction() == "o".charAt(0)) {
-//              dataOutput.add(log);
-//          } else {
-//              dataInput.add(log);
-//          }
-//      }
-//    }
     @NonNull
     @Override
     public Fragment createFragment(int position) {

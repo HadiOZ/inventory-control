@@ -5,9 +5,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.hadioz.inventorycontrol.api.APIService;
 import com.hadioz.inventorycontrol.api.APIUtil;
@@ -25,6 +27,7 @@ import retrofit2.Response;
 public class ListLog extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager2 pager2;
+    private FloatingActionButton fab;
     private FragmentLogAdapter adapter;
     private ArrayList<Log> dataLog = new ArrayList<>();
 
@@ -39,18 +42,27 @@ public class ListLog extends AppCompatActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.tl_log);
         pager2 = (ViewPager2) findViewById(R.id.vp2_log);
+        fab = (FloatingActionButton) findViewById(R.id.fab_log);
+
+        fab.setOnClickListener(view -> {
+            Intent record = new Intent(ListLog.this, InputDataLog.class);
+            record.putExtra(ProductAdapter.EXTRA_PRODUCT_NAME, getIntent().getStringExtra(ProductAdapter.EXTRA_PRODUCT_NAME));
+            record.putExtra(ProductAdapter.EXTRA_ID, getIntent().getStringExtra(ProductAdapter.EXTRA_ID));
+            startActivity(record);
+        });
 
         FragmentManager fm = getSupportFragmentManager();
         adapter = new FragmentLogAdapter(fm, getLifecycle(), getIntent().getStringExtra(ProductAdapter.EXTRA_ID));
         pager2.setAdapter(adapter);
 
-        tabLayout.addTab(tabLayout.newTab().setText("Input"));
-        tabLayout.addTab(tabLayout.newTab().setText("Output"));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.input));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.output));
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 pager2.setCurrentItem(tab.getPosition());
+
             }
 
             @Override
@@ -72,49 +84,6 @@ public class ListLog extends AppCompatActivity {
             }
         });
     }
-//
-//    public class LoadData extends AsyncTask<String,String,String> {
-//        private String dataTemp;
-//
-//        @Override
-//        protected String doInBackground(String... strings) {
-//            APIService apiService = new APIUtil().getAPIService();
-//            apiService.getLog(strings[0]).enqueue(new Callback<String>() {
-//                @Override
-//                public void onResponse(Call<String> call, Response<String> response) {
-//                    dataTemp = response.body();
-//                    //String data = response.body();
-//                }
-//                @Override
-//                public void onFailure(Call<String> call, Throwable t) {
-//                    t.printStackTrace();
-//                }
-//            });
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(String s) {
-//            super.onPostExecute(s);
-//            if (!dataTemp.equals("null")) {
-//                try {
-//                    JSONArray dataArray = new JSONArray(dataTemp);
-//                    for (int i = 0; i < dataArray.length(); i++) {
-//                        JSONObject object = (JSONObject) dataArray.get(i);
-//
-//                        Log log = new Log(object.getString("admin"), object.getString("action").charAt(0), object.getInt("amount"));
-//                        log.setDate(object.getString("date"));
-//                        log.setId(object.getString("id"));
-//                        dataLog.add(log);
-//                    }
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//            adapter.notifyDataSetChanged();
-//        }
-//    }
 
     private void LoadData(String id) {
         APIService apiService = new APIUtil().getAPIService();

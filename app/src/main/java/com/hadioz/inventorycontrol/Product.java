@@ -8,11 +8,11 @@ public class Product {
     private String image;
     private int stock;
 
-    public Product(String name, int price, String code) {
-        this.name = name;
-        this.price = price;
-        this.code = code;
-    }
+    public void setName(String name) {this.name = name;}
+
+    public void setCode(String code) {this.code = code;}
+
+    public void setPrice(int price) {this.price = price;}
 
     public void setId(String id) {
         this.id = id;

@@ -11,11 +11,11 @@ import com.hadioz.inventorycontrol.User;
 
 public class UserModel extends SQLiteOpenHelper {
     public static final String TABLE_USER = "tb_uers";
-    private static final String C1_ID = "id";
-    private static final String C2_NAME = "name";
-    private static final String C3_USERNAME = "username";
-    private static final String C4_PASSWORD = "password";
-    private static final String C5_POSITION ="position";
+    public static final String C1_ID = "id";
+    public static final String C2_NAME = "name";
+    public static final String C3_USERNAME = "username";
+    public static final String C4_PASSWORD = "password";
+    public static final String C5_POSITION ="position";
 
     public UserModel(Context context) {
         super(context, "db_user",null, 1);
@@ -35,7 +35,7 @@ public class UserModel extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL("DROP TABLE IF EXISTS "+ TABLE_USER +";");
+        db.execSQL("DROP TABLE IF EXISTS '"+ TABLE_USER +"';");
         onCreate(db);
     }
 

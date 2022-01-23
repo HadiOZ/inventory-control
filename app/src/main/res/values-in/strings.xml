@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Inventory Control</string>
+    <string name="sign_in_message">Kami tidak dapat mengenali anda</string>
+    <string name="username">Username</string>
+    <string name="password">Kasa sandi</string>
+    <string name="logout">keluar</string>
+    <string name="language">Bahasa</string>
+    <string name="greeting">Selamat datang di</string>
+    <string name="sign_in">Masuk</string>
+    <string name="input">Masuk</string>
+    <string name="output">Keluar</string>
+    <string name="action">Aksi :</string>
+    <string name="hint_amount">Jumlah</string>
+    <string name="save">Simpan</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

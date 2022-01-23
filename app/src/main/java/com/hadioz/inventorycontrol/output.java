@@ -39,6 +39,7 @@ public class output extends Fragment {
         apiService.getLog(id).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
+                dataLog.clear();
                 String data = response.body();
                 if (!data.equals("null")) {
                     android.util.Log.d("Data", response.body());
@@ -69,6 +70,7 @@ public class output extends Fragment {
             }
         });
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.InventoryControl">
-        <activity android:name=".ListLog"></activity>
+        <activity android:name=".InputDataLog"></activity>
+        <activity android:name=".ListLog" />
         <activity android:name=".ListProduct" />
         <activity android:name=".SignIn" />
         <activity android:name=".MainActivity">

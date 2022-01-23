@@ -3,6 +3,7 @@ package com.hadioz.inventorycontrol.api;
 import com.hadioz.inventorycontrol.Log;
 import com.hadioz.inventorycontrol.Product;
 import com.hadioz.inventorycontrol.User;
+import com.hadioz.inventorycontrol.model.LogInsert;
 
 import java.util.ArrayList;
 
@@ -22,5 +23,7 @@ public interface APIService {
     @GET("/logs")
     Call<String> getLog(@Query("id-product") String id);
 
+    @POST("/new-log")
+    Call<String> insertLog(@Body LogInsert log);
 
 }

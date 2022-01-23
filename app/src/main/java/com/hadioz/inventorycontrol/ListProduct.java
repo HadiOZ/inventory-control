@@ -1,14 +1,21 @@
 package com.hadioz.inventorycontrol;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.hadioz.inventorycontrol.model.UserModel;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -21,6 +28,7 @@ import java.util.ArrayList;
 
 public class ListProduct extends AppCompatActivity {
 
+    UserModel userModel;
     private RecyclerView listProduct;
     private ProductAdapter adapter;
     private ArrayList<Product> products = new ArrayList<>();
@@ -28,10 +36,8 @@ public class ListProduct extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_list_product);
-
-        FloatingActionButton fb = findViewById(R.id.fab_new_product);
-
         LoadData loadData = new LoadData();
         loadData.execute();
 
@@ -41,6 +47,42 @@ public class ListProduct extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager= new LinearLayoutManager(ListProduct.this);
         listProduct.setLayoutManager(layoutManager);
         listProduct.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.option, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.logoutOpt:
+                Log.d("about", "clicked");
+                Intent signInIntent = new Intent(ListProduct.this, SignIn.class);
+                userModel = new UserModel(this);
+                userModel.deleteUser();
+                startActivity(signInIntent);
+                return true;
+
+            case R.id.languageOpt:
+                Intent intentLang = new Intent(Settings.ACTION_LOCALE_SETTINGS);
+                startActivity(intentLang);
+                Log.d("language", "clicked");
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LoadData loadData = new LoadData();
+        loadData.execute();
+
     }
 
     public class LoadData extends AsyncTask<String,String,String> {
@@ -88,7 +130,7 @@ public class ListProduct extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-
+            products.clear();
             try {
                 android.util.Log.d("data", s);
                 JSONArray arrayJSON = new JSONArray(s);
@@ -97,7 +139,10 @@ public class ListProduct extends AppCompatActivity {
                     JSONObject object = (JSONObject) arrayJSON.get(i);
                     Log.d("name", object.getString("name"));
 
-                    Product prd = new Product(object.getString("name"), object.getInt("price"), object.getString("code"));
+                    Product prd = new Product();
+                    prd.setName(object.getString("name"));
+                    prd.setCode( object.getString("code"));
+                    prd.setPrice(object.getInt("price"));
                     prd.setStock(object.getInt("stock"));
                     prd.setId(object.getString("id"));
                     prd.setImage(object.getString("path-image"));
